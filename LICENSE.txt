@@ -1,0 +1,25 @@
+Copyright (©) 2026 [Vikyath Reddy Lingampally]
+
+All rights reserved.
+
+This website, including its source code, design, text, graphics, interactive components, and other original materials (collectively, the "Work"), is protected by applicable copyright laws, except for materials that are owned by third parties or otherwise subject to separate licensing terms.
+
+Except as expressly permitted in writing by the copyright holder or applicable law, no person may:
+
+Copy, reproduce, or redistribute the Work or substantial portions of it.
+Modify, adapt, or create derivative works based on the Work.
+Republish or redistribute the Work, in whole or in part, on another website or platform.
+Use the Work or its original materials for commercial purposes.
+Remove or alter copyright notices or other proprietary notices included with the Work.
+
+Viewing and accessing the publicly available website for personal, educational, and informational purposes is permitted, subject to applicable law and the terms of any third-party services or materials used by the website.
+
+This notice does not grant ownership of, or additional rights to, third-party libraries, fonts, images, datasets, APIs, trademarks, or other materials incorporated into the Work. Such materials remain subject to their respective owners' rights and applicable licenses.
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW. THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE WORK, TO THE EXTENT PERMITTED BY APPLICABLE LAW.
+
+For permissions beyond those expressly granted above, contact the copyright holder.
+
+Website: https://alt-v-bit.github.io/ALT_BOT/ALT_SAA.html
+
+END OF LICENSE
