@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="description" content="ALT — AI Literacy for Teens. Learn to understand, question, protect and create with AI.">
+<title>ALT — AI Literacy for Teens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============ TOKENS ============ */
+:root{
+  --black:#0a0a0c;
+  --black-2:#131316;
+  --black-3:#1b1b1f;
+  --red:#e8232d;
+  --red-2:#b3121a;
+  --red-deep:#5c0a0f;
+  --red-glow:#ff5a5f;
+  --paper:#f4efe8;
+  --paper-dim:#cdc6bd;
+  --ash:#8f8983;
+  --green:#4caf6a;
+  --amber:#e0a72e;
+  --line:rgba(244,239,232,0.10);
+  --line-strong:rgba(244,239,232,0.18);
+  --radius:2px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --mx:-200px;--my:-200px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:92px;}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(232,35,45,.08), transparent 28rem),
+    radial-gradient(circle at 88% 30%, rgba(232,35,45,.05), transparent 30rem),
+    var(--black);
+  color:var(--paper);
+  font-family:var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+body::after{
+  content:"";position:fixed;width:320px;height:320px;border-radius:50%;
+  left:var(--mx);top:var(--my);pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(255,48,64,.10),transparent 68%);
+  transform:translate(-50%,-50%);
+  transition:left .18s ease-out,top .18s ease-out;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+::selection{background:var(--red);color:var(--paper);}
+button{font-family:inherit;}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px;}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;line-height:1.12;letter-spacing:-0.01em;}
+p{margin:0;}
+
+/* ============ NAV ============ */
+header.site-nav{
+  position:sticky;top:0;z-index:80;
+  background:rgba(10,10,12,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 8px 30px rgba(0,0,0,.14);
+}
+header.site-nav::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+  opacity:.6;
+}
+.nav-row{
+  display:flex;align-items:center;justify-content:space-between;
+  height:76px;gap:20px;
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;}
+.brand-mark{
+  width:38px;height:38px;border:2px solid var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:15px;
+  color:var(--red);flex-shrink:0;transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+}
+.brand:hover .brand-mark{transform:rotate(-4deg) scale(1.06);box-shadow:0 0 28px rgba(255,48,64,.28);background:rgba(255,48,64,.06);}
+.brand-name{font-family:var(--font-display);font-weight:600;font-size:17px;color:var(--paper);}
+.brand-sub{display:block;font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--ash);margin-top:1px;}
+
+nav.main-links{display:flex;align-items:center;gap:32px;}
+nav.main-links a{
+  text-decoration:none;color:var(--paper-dim);font-size:14.5px;font-weight:500;
+  position:relative;padding:6px 0;transition:color .2s ease,transform .2s ease;
+}
+nav.main-links a:hover{color:var(--paper);transform:translateY(-2px);}
+nav.main-links a.active{color:var(--paper);}
+nav.main-links a.active::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--red);
+}
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.nav-cta{
+  border:1px solid var(--red);color:var(--paper);background:transparent;
+  padding:9px 18px;font-family:var(--font-body);font-size:13.5px;font-weight:600;
+  cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,background .2s ease,color .2s ease;
+}
+.nav-cta:hover{background:var(--red);transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,35,45,.22);}
+.nav-toggle{
+  display:none;width:40px;height:40px;border:1px solid var(--line-strong);background:transparent;
+  cursor:pointer;flex-shrink:0;position:relative;
+}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
+  content:"";position:absolute;left:10px;right:10px;height:1.5px;background:var(--paper);transition:transform .25s ease,opacity .25s ease;
+}
+.nav-toggle span{top:19px;}
+.nav-toggle span::before{content:"";top:-7px;}
+.nav-toggle span::after{content:"";top:7px;}
+.nav-toggle.open span{background:transparent;}
+.nav-toggle.open span::before{transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span::after{transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{
+  display:none;max-height:0;overflow:hidden;border-bottom:1px solid var(--line);
+  background:var(--black-2);transition:max-height .3s ease;
+}
+.mobile-menu.open{max-height:320px;}
+.mobile-menu-inner{display:flex;flex-direction:column;padding:8px 24px 20px;}
+.mobile-menu-inner a{
+  text-decoration:none;color:var(--paper-dim);font-size:15px;padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-menu-inner a:last-child{border-bottom:none;}
+
+/* ============ HERO ============ */
+.hero{
+  padding:88px 0 96px;
+  border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+  min-height:72vh;
+  background:radial-gradient(circle at 78% 34%,rgba(255,48,64,.12),transparent 22rem);
+}
+.hero::before{
+  content:"ALT / 2026";position:absolute;right:4vw;top:34px;
+  font:600 11px/1 var(--font-display);letter-spacing:.18em;color:rgba(255,255,255,.25);
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;
+}
+.eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:22px;min-height:20px;}
+.eyebrow-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:pulse-dot 2.2s ease-in-out infinite;flex-shrink:0;}
+.eyebrow-text{font-size:13px;color:var(--ash);font-weight:500;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+.hero h1{font-size:clamp(38px,4.6vw,60px);color:var(--paper);}
+.hero h1 em{font-style:normal;color:var(--red);}
+.hero-sub{
+  margin-top:22px;font-size:18px;color:var(--paper-dim);max-width:52ch;font-weight:400;
+}
+.hero-actions{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+.hero-note{margin-top:18px;font-size:12.5px;color:var(--ash);}
+.btn{
+  font-family:var(--font-body);font-weight:600;font-size:14.5px;
+  padding:15px 26px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  cursor:pointer;border:none;transition:transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.btn-solid{background:var(--red);color:var(--black);}
+.btn-solid:hover{background:var(--red-glow);transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,35,45,.22);}
+.btn-outline{background:transparent;color:var(--paper);border:1px solid var(--line-strong);}
+.btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px);}
+.btn:active{transform:scale(0.98);}
+
+.hero-visual{position:relative;aspect-ratio:1/1;}
+.hero-visual svg{width:100%;height:100%;}
+.hero-scroll-cue{
+  position:absolute;left:40px;bottom:18px;display:flex;align-items:center;gap:10px;
+  color:var(--ash);font-size:11.5px;letter-spacing:.04em;
+}
+.hero-scroll-cue svg{width:14px;height:14px;animation:cue-bounce 1.8s ease-in-out infinite;}
+@keyframes cue-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+@media (prefers-reduced-motion: no-preference){
+  .pulse-line{stroke-dasharray:6 10;animation:dash 6s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-160;}}
+  .node-glow{animation:node-pulse 3s ease-in-out infinite;}
+  @keyframes node-pulse{0%,100%{opacity:.4;r:4;}50%{opacity:1;r:6;}}
+}
+.hero-node{cursor:pointer;}
+.hero-node circle{transition:r .2s ease;}
+.hero-node:hover circle:first-of-type{r:8;}
+.hero-node text{font-family:var(--font-display);font-size:9px;fill:var(--paper-dim);opacity:0;transition:opacity .2s ease;}
+.hero-node:hover text{opacity:1;}
+
+/* ============ STAT STRIP ============ */
+.stat-strip{border-bottom:1px solid var(--line);background:var(--black-2);}
+.stat-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat-cell{
+  padding:40px 32px;border-left:1px solid var(--line);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease;
+}
+.stat-cell:hover{transform:translateY(-6px);background:rgba(255,255,255,.015);}
+.stat-cell:first-child{border-left:none;}
+.stat-num{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,3vw,42px);color:var(--red);}
+.stat-label{margin-top:10px;font-size:14px;color:var(--paper-dim);max-width:26ch;}
+.stat-source{margin-top:8px;font-size:11.5px;color:var(--ash);}
+
+/* ============ SECTION HEADS ============ */
+.section{padding:96px 0;border-bottom:1px solid var(--line);}
+.section:last-of-type{border-bottom:none;}
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px;}
+.section-head h2{font-size:clamp(28px,3vw,40px);color:var(--paper);}
+.section-head p{color:var(--paper-dim);font-size:16px;max-width:44ch;}
+section{scroll-margin-top:90px;}
+
+/* ============ PILLARS ============ */
+.pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);}
+.pillar{
+  padding:36px 30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  transition:background .25s ease,transform .25s ease;
+}
+.pillar:hover{background:var(--black-2);transform:translateY(-4px);}
+.pillar-icon{width:44px;height:44px;margin-bottom:22px;}
+.pillar h3{font-size:19px;color:var(--paper);margin-bottom:12px;}
+.pillar p{font-size:14.5px;color:var(--paper-dim);}
+
+/* ============ MYTH VS FACT ============ */
+.myth-head-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;flex-wrap:wrap;}
+.myth-progress{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ash);}
+.myth-progress-track{width:110px;height:4px;background:var(--black-3);position:relative;overflow:hidden;}
+.myth-progress-fill{height:100%;background:var(--red);width:0;transition:width .4s ease;}
+.myth-reset{
+  border:1px solid var(--line-strong);background:transparent;color:var(--paper-dim);
+  font-size:12.5px;padding:7px 12px;cursor:pointer;transition:border-color .2s ease,color .2s ease;
+}
+.myth-reset:hover{border-color:var(--red);color:var(--paper);}
+.myth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.myth-card{
+  background:transparent;border:none;padding:0;cursor:pointer;perspective:1200px;
+  height:220px;font-family:inherit;text-align:left;
+}
+.myth-inner{
+  position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  transform-style:preserve-3d;
+}
+.myth-card.is-flipped .myth-inner{transform:rotateY(180deg);}
+.myth-face{
+  position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line-strong);
+  padding:26px;display:flex;flex-direction:column;gap:14px;
+}
+.myth-front{background:var(--black-2);transition:border-color .25s ease,transform .25s ease;}
+.myth-card:hover .myth-front{border-color:rgba(255,48,64,.3);}
+.myth-back{background:var(--red-deep);transform:rotateY(180deg);}
+.myth-tag{
+  font-family:var(--font-display);font-weight:600;font-size:12px;color:var(--ash);
+  border:1px solid var(--line-strong);padding:4px 10px;width:fit-content;
+}
+.myth-tag.fact{color:var(--black);background:var(--paper);border-color:var(--paper);}
+.myth-face p{font-size:14.5px;color:var(--paper-dim);line-height:1.5;}
+.myth-back p{color:var(--paper);}
+.myth-card.seen .myth-front::after{
+  content:"✓ seen";position:absolute;top:14px;right:14px;font-size:11px;color:var(--red);
+}
+.myth-front{position:relative;}
+.myth-card:focus-visible .myth-face{outline:2px solid var(--red);}
+@media (prefers-reduced-motion: reduce){.myth-inner{transition:none;}}
+
+/* ============ QUIZ ============ */
+.quiz-card{
+  border:1px solid var(--line-strong);background:var(--black-2);padding:44px;position:relative;overflow:hidden;
+}
+.quiz-top{margin-bottom:30px;}
+.quiz-progress-label{font-size:12.5px;color:var(--ash);display:block;margin-bottom:10px;}
+.quiz-progress-track{height:4px;background:var(--black-3);width:100%;position:relative;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--red);width:0;transition:width .4s cubic-bezier(.2,.8,.2,1);}
+.quiz-question{font-size:clamp(19px,2.2vw,24px);color:var(--paper);max-width:56ch;margin-bottom:28px;}
+.quiz-options{display:flex;flex-direction:column;gap:12px;}
+.quiz-option{
+  text-align:left;border:1px solid var(--line-strong);background:var(--black);color:var(--paper-dim);
+  padding:16px 20px;font-size:14.5px;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .15s ease;
+  display:flex;align-items:center;gap:14px;
+}
+.quiz-option .opt-letter{
+  width:26px;height:26px;border:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:12px;flex-shrink:0;color:var(--ash);
+}
+.quiz-option:hover:not(:disabled){border-color:rgba(255,48,64,.5);transform:translateX(4px);color:var(--paper);}
+.quiz-option:disabled{cursor:default;}
+.quiz-option.correct{border-color:var(--green);background:rgba(76,175,106,.08);color:var(--paper);}
+.quiz-option.correct .opt-letter{border-color:var(--green);color:var(--green);}
+.quiz-option.wrong{border-color:var(--red);background:rgba(232,35,45,.08);color:var(--paper);}
+.quiz-option.wrong .opt-letter{border-color:var(--red);color:var(--red);}
+.quiz-explain{
+  margin-top:22px;border-left:2px solid var(--red);padding:16px 22px;background:var(--black);
+  font-size:14px;color:var(--paper-dim);max-width:64ch;display:none;
+}
+.quiz-explain.show{display:block;}
+.quiz-next{margin-top:26px;}
+.quiz-results{text-align:left;}
+.quiz-tier{display:inline-block;font-family:var(--font-display);font-weight:700;color:var(--red);font-size:13px;
+  border:1px solid var(--red-deep);padding:6px 14px;margin-bottom:16px;}
+.quiz-score-big{font-family:var(--font-display);font-weight:700;font-size:clamp(44px,6vw,72px);color:var(--paper);line-height:1;}
+.quiz-score-sub{color:var(--paper-dim);font-size:15px;margin-top:8px;max-width:56ch;}
+.quiz-cats{margin-top:32px;display:flex;flex-direction:column;gap:14px;}
+.quiz-cat-row{display:grid;grid-template-columns:140px 1fr 50px;align-items:center;gap:14px;}
+.quiz-cat-label{font-size:13px;color:var(--paper-dim);}
+.quiz-cat-track{height:8px;background:var(--black-3);position:relative;overflow:hidden;}
+.quiz-cat-fill{height:100%;background:var(--red);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1);}
+.quiz-cat-val{font-size:12.5px;color:var(--ash);text-align:right;}
+.quiz-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+.quiz-copy-note{font-size:12px;color:var(--ash);margin-top:10px;display:none;}
+.quiz-copy-note.show{display:block;}
+.quiz-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.confetti-piece{position:absolute;top:-10px;width:7px;height:12px;background:var(--red);opacity:.9;animation:confetti-fall linear forwards;}
+@keyframes confetti-fall{to{transform:translateY(480px) rotate(360deg);opacity:0;}}
+
+/* ============ REAL-OR-AI GAME ============ */
+.game-card{border:1px solid var(--line-strong);background:var(--black-2);padding:44px;}
+.game-meta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ash);margin-bottom:24px;flex-wrap:wrap;gap:10px;}
+.game-meta strong{color:var(--paper);}
+.game-instructions{font-size:14px;color:var(--paper-dim);margin-bottom:22px;max-width:60ch;}
+.game-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.game-choice{
+  border:1px solid var(--line-strong);background:var(--black);color:var(--paper-dim);
+  padding:26px;text-align:left;cursor:pointer;font-size:14.5px;line-height:1.6;
+  transition:border-color .2s ease,transform .2s ease,background .2s ease;position:relative;
+}
+.game-choice:hover:not(:disabled){border-color:rgba(255,48,64,.5);transform:translateY(-4px);}
+.game-choice:disabled{cursor:default;}
+.game-choice .gc-label{display:block;font-family:var(--font-display);font-size:11.5px;color:var(--ash);margin-bottom:12px;letter-spacing:.02em;}
+.game-choice.gc-correct{border-color:var(--green);background:rgba(76,175,106,.08);}
+.game-choice.gc-wrong{border-color:var(--red);background:rgba(232,35,45,.08);}
+.game-choice.gc-correct .gc-label{color:var(--green);}
+.game-choice.gc-wrong .gc-label{color:var(--red);}
+.game-feedback{margin-top:24px;border-left:2px solid var(--red);padding:16px 22px;background:var(--black);font-size:14px;color:var(--paper-dim);max-width:64ch;}
+.game-feedback strong{color:var(--paper);}
+.game-next{margin-top:20px;}
+.game-final .quiz-score-big{color:var(--paper);}
+
+/* ============ BOT PROMO ============ */
+.bot-section{background:var(--black-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.bot-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:center;padding:96px 0;}
+.bot-copy .tag{color:var(--red);font-size:13px;font-weight:600;letter-spacing:.02em;}
+.bot-copy h2{margin-top:14px;font-size:clamp(26px,3vw,36px);color:var(--paper);}
+.bot-copy p{margin-top:18px;color:var(--paper-dim);font-size:16px;max-width:42ch;}
+.bot-features{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+.bot-feature{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--paper-dim);}
+.bot-feature svg{flex-shrink:0;margin-top:2px;}
+
+.bot-preview{
+  background:var(--black);border:1px solid var(--line-strong);
+  display:flex;flex-direction:column;height:460px;
+}
+.bot-preview-head{
+  display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line);
+}
+.bot-preview-dot{width:8px;height:8px;border-radius:50%;background:var(--red);}
+.bot-preview-title{font-family:var(--font-display);font-weight:600;font-size:14px;}
+.bot-preview-status{margin-left:auto;font-size:11.5px;color:var(--ash);}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);padding:64px 0 32px;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(255,255,255,.025));}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
+.footer-brand p{margin-top:14px;color:var(--ash);font-size:13.5px;max-width:32ch;}
+.footer-col h4{font-size:13px;color:var(--paper-dim);font-weight:600;margin-bottom:16px;}
+.footer-col a{display:block;text-decoration:none;color:var(--ash);font-size:13.5px;margin-bottom:10px;transition:color .2s ease;}
+.footer-col a:hover{color:var(--red);}
+.footer-bottom{
+  margin-top:56px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;color:var(--ash);font-size:12.5px;flex-wrap:wrap;gap:10px;
+}
+
+/* ============ TIPS PAGES ============ */
+.page-hero{padding:72px 0 56px;border-bottom:1px solid var(--line);}
+.page-hero .kicker{color:var(--red);font-size:13px;font-weight:600;}
+.page-hero h1{font-size:clamp(32px,4vw,50px);margin-top:14px;max-width:20ch;}
+.page-hero p{margin-top:18px;color:var(--paper-dim);font-size:17px;max-width:60ch;}
+
+.section-label{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;}
+.section-label .num{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--red);}
+.section-label h2{font-size:clamp(24px,2.6vw,32px);}
+.section-label-wrap{display:flex;flex-direction:column;gap:0;margin-bottom:44px;}
+.section-label-wrap .desc{color:var(--paper-dim);font-size:15px;max-width:60ch;}
+
+.tip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.tip-card{background:var(--black);padding:32px;transition:background .25s ease;}
+.tip-card:hover{background:var(--black-2);}
+.tip-card h3{font-size:17px;margin-bottom:14px;}
+.tip-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;}
+.tip-card li{font-size:14px;color:var(--paper-dim);padding-left:20px;position:relative;}
+.tip-card li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:2px;background:var(--red);}
+
+/* ---- privacy risk meter ---- */
+.privacy-meter{
+  margin-top:44px;border:1px solid var(--line-strong);background:var(--black-2);
+  display:grid;grid-template-columns:1.3fr 1fr;gap:0;
+}
+.pm-text{padding:40px;}
+.pm-text h3{font-size:19px;margin-bottom:10px;}
+.pm-text>p{color:var(--paper-dim);font-size:14px;margin-bottom:22px;max-width:48ch;}
+.pm-checks{display:flex;flex-direction:column;gap:2px;}
+.pm-checks label{
+  display:flex;align-items:center;gap:12px;font-size:14px;color:var(--paper-dim);
+  padding:10px 0;cursor:pointer;border-bottom:1px solid var(--line);
+}
+.pm-checks label:last-child{border-bottom:none;}
+.pm-checks input{
+  appearance:none;width:17px;height:17px;border:1.5px solid var(--line-strong);flex-shrink:0;
+  cursor:pointer;position:relative;transition:border-color .15s ease, background .15s ease;
+}
+.pm-checks input:checked{background:var(--red);border-color:var(--red);}
+.pm-checks input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--black);}
+.pm-safe{color:var(--paper) !important;font-weight:500;}
+.pm-gauge{
+  padding:40px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;background:var(--black);
+}
+.pm-gauge svg{width:170px;height:170px;}
+.pm-score{font-family:var(--font-display);font-weight:700;font-size:34px;margin-top:-108px;}
+.pm-verdict-tag{
+  font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.02em;
+  padding:5px 12px;border:1px solid var(--line-strong);margin-top:14px;
+}
+.pm-verdict-text{margin-top:14px;font-size:13.5px;color:var(--paper-dim);max-width:32ch;}
+
+.check-panel{
+  border:1px solid var(--line-strong);padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:40px;background:var(--black-2);
+}
+.check-panel h3{font-size:20px;margin-bottom:6px;}
+.check-panel .sub{color:var(--ash);font-size:13.5px;margin-bottom:22px;display:block;}
+.check-list label{
+  display:flex;align-items:flex-start;gap:12px;font-size:14.5px;color:var(--paper-dim);
+  margin-bottom:16px;cursor:pointer;
+}
+.check-list input{
+  appearance:none;width:18px;height:18px;border:1.5px solid var(--line-strong);flex-shrink:0;margin-top:1px;
+  cursor:pointer;position:relative;transition:border-color .15s ease, background .15s ease;
+}
+.check-list input:checked{background:var(--red);border-color:var(--red);}
+.check-list input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--black);}
+.check-list label.checked-text{color:var(--paper);}
+.check-panel-progress{font-size:12.5px;color:var(--ash);margin-top:6px;}
+
+.resource-list{display:flex;flex-direction:column;}
+.resource-row{
+  display:grid;grid-template-columns:2fr 3fr 1fr;gap:24px;align-items:center;
+  padding:22px 0;border-bottom:1px solid var(--line);transition:padding-left .2s ease;
+}
+.resource-row:hover{padding-left:8px;}
+.resource-row:first-child{border-top:1px solid var(--line);}
+.resource-row .r-name{font-family:var(--font-display);font-weight:600;font-size:16px;}
+.resource-row .r-desc{font-size:14px;color:var(--paper-dim);}
+.resource-row .r-link{
+  justify-self:end;font-size:13.5px;font-weight:600;color:var(--red);text-decoration:none;
+  border:1px solid var(--red-deep);padding:8px 16px;transition:background .2s ease,color .2s ease;
+}
+.resource-row .r-link:hover{background:var(--red);color:var(--black);}
+
+.faq-list{border-top:1px solid var(--line);}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-q{
+  width:100%;background:none;border:none;color:var(--paper);cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:24px 0;font-family:var(--font-display);font-weight:600;font-size:16.5px;text-align:left;
+}
+.faq-icon{
+  flex-shrink:0;width:26px;height:26px;border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--red);
+  transition:transform .3s ease;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-item.open .faq-a{max-height:260px;}
+.faq-a p{padding:0 0 26px;color:var(--paper-dim);font-size:14.5px;max-width:66ch;}
+
+.cta-band{padding:80px 0;text-align:center;}
+.cta-band h2{font-size:clamp(26px,3vw,36px);max-width:20ch;margin:0 auto;}
+.cta-band p{margin-top:16px;color:var(--paper-dim);font-size:16px;}
+.cta-actions{margin-top:32px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* ============ WHY IT MATTERS PAGE ============ */
+.bento{
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.bento-cell{background:var(--black);padding:28px;display:flex;flex-direction:column;justify-content:space-between;transition:background .25s ease,transform .25s ease;}
+.bento-cell:hover{background:var(--black-2);transform:translateY(-4px);}
+.bento-cell.big{grid-column:span 2;grid-row:span 2;background:var(--black-2);}
+.bento-cell.big:hover{background:#191920;}
+.bento-cell .figure{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,3.4vw,52px);color:var(--red);}
+.bento-cell.big .figure{font-size:clamp(40px,5vw,72px);}
+.bento-cell .cap{font-size:13.5px;color:var(--paper-dim);}
+.bento-cell .src{font-size:11px;color:var(--ash);margin-top:8px;}
+
+.chart-panel{border:1px solid var(--line-strong);padding:44px;background:var(--black-2);}
+.chart-panel h3{font-size:18px;margin-bottom:6px;}
+.chart-panel .sub{color:var(--ash);font-size:13px;display:block;margin-bottom:32px;}
+.bar-row{display:grid;grid-template-columns:200px 1fr 60px;align-items:center;gap:16px;margin-bottom:20px;cursor:default;}
+.bar-label{font-size:14px;color:var(--paper-dim);}
+.bar-track{background:var(--black-3);height:14px;position:relative;overflow:hidden;}
+.bar-fill{height:100%;background:var(--red);width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1);}
+.bar-val{font-family:var(--font-display);font-weight:600;font-size:14px;text-align:right;color:var(--paper);}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+.compare-cell{background:var(--black);padding:40px;text-align:center;}
+.compare-cell .figure{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,5vw,64px);}
+.compare-cell.negative .figure{color:var(--red);}
+.compare-cell.positive .figure{color:var(--paper);}
+.compare-cell .cap{margin-top:10px;font-size:14px;color:var(--paper-dim);max-width:30ch;margin-left:auto;margin-right:auto;}
+.compare-vs{display:flex;align-items:center;justify-content:center;background:var(--black-2);font-family:var(--font-display);font-size:12px;color:var(--ash);letter-spacing:.05em;}
+
+.ring-panel{display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:center;border:1px solid var(--line-strong);padding:44px;background:var(--black-2);}
+.ring-panel .text h3{font-size:18px;margin-bottom:12px;}
+.ring-panel .text p{color:var(--paper-dim);font-size:14.5px;}
+.ring-legend{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;}
+.ring-legend .item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--paper-dim);}
+.ring-legend .swatch{width:12px;height:12px;flex-shrink:0;}
+
+.so-what{margin-top:24px;border-left:2px solid var(--red);padding:18px 24px;background:var(--black-2);}
+.so-what-tag{font-family:var(--font-display);font-weight:600;font-size:13.5px;color:var(--red);display:block;margin-bottom:8px;}
+.so-what p{color:var(--paper-dim);font-size:14.5px;max-width:64ch;}
+
+.quote-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:64px 0;}
+.quote-strip blockquote{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.8vw,32px);max-width:26ch;line-height:1.35;}
+.quote-strip cite{display:block;margin-top:20px;font-family:var(--font-body);font-style:normal;color:var(--ash);font-size:13.5px;}
+
+.source-list{padding:56px 0;}
+.source-list h4{font-size:13px;color:var(--paper-dim);font-weight:600;margin-bottom:20px;}
+.source-list ol{margin:0;padding:0 0 0 20px;color:var(--ash);font-size:13px;display:flex;flex-direction:column;gap:10px;}
+.source-list a{color:var(--ash);text-decoration:underline;text-decoration-color:var(--red-deep);}
+.source-list a:hover{color:var(--red);}
+
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+
+/* ============ SCROLL / PROGRESS CHROME ============ */
+#read-progress{position:fixed;top:0;left:0;height:3px;z-index:90;width:0%;transition:width .1s linear;
+  background:linear-gradient(90deg,var(--red),#ff7b83,#7de8ff);box-shadow:0 0 14px rgba(255,48,64,.55);}
+
+.dot-nav{
+  position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:70;
+  display:flex;flex-direction:column;gap:16px;
+}
+.dot-nav .dot{
+  width:9px;height:9px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;
+  cursor:pointer;position:relative;padding:0;transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.dot-nav .dot.active{background:var(--red);border-color:var(--red);transform:scale(1.3);}
+.dot-nav .dot span{
+  position:absolute;left:20px;top:50%;transform:translateY(-50%) translateX(-6px);
+  font-size:11.5px;color:var(--paper-dim);white-space:nowrap;background:var(--black-2);
+  border:1px solid var(--line-strong);padding:5px 10px;opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+}
+.dot-nav .dot:hover span{opacity:1;transform:translateY(-50%) translateX(0);}
+
+.back-to-top{
+  position:fixed;left:24px;bottom:26px;z-index:70;width:44px;height:44px;
+  border:1px solid var(--line-strong);background:var(--black-2);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  opacity:0;pointer-events:none;transform:translateY(10px);
+  transition:opacity .25s ease,transform .25s ease,border-color .2s ease;
+}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+.back-to-top:hover{border-color:var(--red);}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .wrap{padding:0 24px;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{max-width:340px;margin:0 auto;order:-1;}
+  .hero-scroll-cue{display:none;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-cell:nth-child(3){border-left:none;}
+  .stat-cell{border-bottom:1px solid var(--line);}
+  .pillar-grid{grid-template-columns:repeat(2,1fr);}
+  .pillar:nth-child(3){border-left:none;}
+  .myth-grid{grid-template-columns:repeat(2,1fr);}
+  .bot-grid{grid-template-columns:1fr;padding:64px 0;}
+  .bot-preview{order:-1;}
+  .section-head{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+  .tip-grid{grid-template-columns:1fr;}
+  .check-panel{grid-template-columns:1fr;}
+  .resource-row{grid-template-columns:1fr;gap:8px;}
+  .resource-row .r-link{justify-self:start;}
+  .bento{grid-template-columns:repeat(2,1fr);}
+  .bento-cell.big{grid-column:span 2;grid-row:span 1;}
+  .compare-grid{grid-template-columns:1fr;}
+  .compare-vs{padding:14px;}
+  .ring-panel{grid-template-columns:1fr;}
+  .bar-row{grid-template-columns:120px 1fr 50px;}
+  .game-pair{grid-template-columns:1fr;}
+  .privacy-meter{grid-template-columns:1fr;}
+  .pm-gauge{border-left:none;border-top:1px solid var(--line);}
+  nav.main-links{display:none;}
+  .nav-toggle{display:block;}
+  .mobile-menu{display:block;}
+  .dot-nav,.back-to-top{display:none;}
+}
+@media (max-width:560px){
+  .stat-grid,.pillar-grid,.myth-grid{grid-template-columns:1fr;}
+  .stat-cell,.pillar{border-left:none !important;}
+  .footer-grid{grid-template-columns:1fr;}
+  .quiz-card,.game-card{padding:26px;}
+  .quiz-cat-row{grid-template-columns:100px 1fr 40px;}
+  .brand-sub{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+
+<nav class="dot-nav" aria-label="Page sections">
+  <button class="dot active" data-target="#home" aria-label="Jump to Home"><span>Home</span></button>
+  <button class="dot" data-target="#quiz" aria-label="Jump to Quiz"><span>Test yourself</span></button>
+  <button class="dot" data-target="#game" aria-label="Jump to Game"><span>Spot it</span></button>
+  <button class="dot" data-target="#tips" aria-label="Jump to Tips"><span>Habits</span></button>
+  <button class="dot" data-target="#why" aria-label="Jump to Data"><span>The data</span></button>
+</nav>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg fill="none" height="16" viewBox="0 0 16 16" width="16"><path d="M8 13V3M3 7l5-5 5 5" stroke="#f4efe8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+</button>
+
+<header class="site-nav">
+<div class="wrap nav-row">
+<a class="brand" href="#home">
+<span class="brand-mark">A</span>
+<span>
+<span class="brand-name">ALT</span>
+<span class="brand-sub">AI Literacy for Teens</span>
+</span>
+</a>
+<nav class="main-links">
+<a href="#home">Home</a>
+<a href="#quiz">Test yourself</a>
+<a href="#game">Spot it</a>
+<a href="#tips">Habits</a>
+<a href="#why">The data</a>
+</nav>
+<div class="nav-right">
+<button class="nav-cta" data-open-chat>Ask ALT</button>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+</div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu-inner">
+<a href="#home">Home</a>
+<a href="#quiz">Test yourself</a>
+<a href="#game">Spot it</a>
+<a href="#tips">Habits</a>
+<a href="#why">The data</a>
+</div>
+</div>
+</header>
+
+<section class="hero" id="home">
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow-row">
+<span class="eyebrow-dot"></span>
+<span class="eyebrow-text" id="heroRotator">Made by people who grew up online too</span>
+</div>
+<h1>Know what the machine is doing<br/>before you trust <em>what it says</em>.</h1>
+<p class="hero-sub">You didn't ask to grow up alongside something this powerful — but here you are, using it before lunch and after homework, mostly figuring it out alone. ALT is the part nobody sat you down to explain: how it actually works, where it quietly lies, and how to stay sharper than the tool in your pocket.</p>
+<div class="hero-actions">
+<button class="btn btn-solid" data-open-chat>Chat with ALT Bot</button>
+<a class="btn btn-outline" href="#quiz">Test your literacy</a>
+</div>
+<p class="hero-note">No sign-up. No data collected. Just answers.</p>
+</div>
+<div aria-hidden="true" class="hero-visual">
+<svg fill="none" viewBox="0 0 400 400">
+<line class="pulse-line" stroke="#5c0a0f" stroke-width="1.5" x1="80" x2="200" y1="90" y2="200"></line>
+<line class="pulse-line" stroke="#5c0a0f" stroke-width="1.5" x1="320" x2="200" y1="70" y2="200"></line>
+<line class="pulse-line" stroke="#5c0a0f" stroke-width="1.5" x1="60" x2="200" y1="300" y2="200"></line>
+<line class="pulse-line" stroke="#5c0a0f" stroke-width="1.5" x1="330" x2="200" y1="310" y2="200"></line>
+<line class="pulse-line" stroke="#5c0a0f" stroke-width="1.5" x1="200" x2="200" y1="200" y2="40"></line>
+<line class="pulse-line" stroke="#2a2a2e" stroke-width="1" x1="80" x2="60" y1="90" y2="300"></line>
+<line class="pulse-line" stroke="#2a2a2e" stroke-width="1" x1="320" x2="330" y1="70" y2="310"></line>
+<rect fill="#0a0a0c" height="60" stroke="#e8232d" stroke-width="2" width="60" x="170" y="170"></rect>
+<text fill="#e8232d" font-family="Space Grotesk" font-size="20" font-weight="700" text-anchor="middle" x="200" y="205">AI</text>
+<g class="hero-node"><circle class="node-glow" cx="80" cy="90" fill="#e8232d" r="5"></circle><circle cx="80" cy="90" r="12" stroke="#3a1114" stroke-width="1"></circle><text x="80" y="72" text-anchor="middle">hallucinate</text></g>
+<g class="hero-node"><circle class="node-glow" cx="320" cy="70" fill="#e8232d" r="5"></circle><circle cx="320" cy="70" r="12" stroke="#3a1114" stroke-width="1"></circle><text x="320" y="52" text-anchor="middle">bias</text></g>
+<g class="hero-node"><circle class="node-glow" cx="60" cy="300" fill="#e8232d" r="5"></circle><circle cx="60" cy="300" r="12" stroke="#3a1114" stroke-width="1"></circle><text x="60" y="322" text-anchor="middle">privacy</text></g>
+<g class="hero-node"><circle class="node-glow" cx="330" cy="310" fill="#e8232d" r="5"></circle><circle cx="330" cy="310" r="12" stroke="#3a1114" stroke-width="1"></circle><text x="330" y="332" text-anchor="middle">deepfakes</text></g>
+<g class="hero-node"><circle class="node-glow" cx="200" cy="40" fill="#e8232d" r="5"></circle><circle cx="200" cy="40" r="12" stroke="#3a1114" stroke-width="1"></circle><text x="200" y="24" text-anchor="middle">judgment</text></g>
+</svg>
+</div>
+</div>
+<div class="hero-scroll-cue" aria-hidden="true">
+<svg fill="none" viewBox="0 0 14 14"><path d="M2 5l5 5 5-5" stroke="#8f8983" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+scroll to see the numbers
+</div>
+</section>
+
+<section class="stat-strip">
+<div class="wrap stat-grid">
+<div class="stat-cell">
+<div class="stat-num" data-count="86">0%</div>
+<div class="stat-label">of kids age 9–17 have used AI in some form</div>
+<div class="stat-source">Common Sense Media Census, 2026</div>
+</div>
+<div class="stat-cell">
+<div class="stat-num" data-count="64">0%</div>
+<div class="stat-label">of U.S. teens say they use AI chatbots, about 3 in 10 daily</div>
+<div class="stat-source">Pew Research Center, Dec. 2025</div>
+</div>
+<div class="stat-cell">
+<div class="stat-num" data-count="41">0%</div>
+<div class="stat-label">of kids say no parent or guardian has ever discussed AI safety with them</div>
+<div class="stat-source">Common Sense Media Census, 2026</div>
+</div>
+<div class="stat-cell">
+<div class="stat-num" data-count="15" data-decimal="1">0%</div>
+<div class="stat-label">drop in people's own misinformation-spotting skill after leaning on AI help</div>
+<div class="stat-source">MIT Media Lab, 2025</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<h2>AI literacy isn't one skill. It's four.</h2>
+<p>None of this requires a computer science background. It's the same instinct you already use to clock a sketchy source in a group chat — just pointed at a much faster, much more confident liar.</p>
+</div>
+<div class="pillar-grid">
+<div class="pillar">
+<svg class="pillar-icon" fill="none" viewBox="0 0 44 44"><rect height="32" stroke="#e8232d" stroke-width="1.6" width="32" x="6" y="6"></rect><path d="M14 22h16M22 14v16" stroke="#e8232d" stroke-width="1.6"></path></svg>
+<h3>Understand the mechanism</h3>
+<p>A chatbot doesn't "know" facts the way a person does. It's guessing the next most likely word, over and over, based on patterns it picked up from the internet. That's the whole trick — and it's also why it can sound completely sure of itself while being completely wrong.</p>
+</div>
+<div class="pillar">
+<svg class="pillar-icon" fill="none" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" stroke="#e8232d" stroke-width="1.6"></circle><path d="M22 14v10l7 4" stroke="#e8232d" stroke-linecap="round" stroke-width="1.6"></path></svg>
+<h3>Question every output</h3>
+<p>Treat an AI answer like a friend's confident guess, not a citation. Great starting point, terrible ending point. Cross-check names, dates, and quotes against something real before you repeat them anywhere that matters.</p>
+</div>
+<div class="pillar">
+<svg class="pillar-icon" fill="none" viewBox="0 0 44 44"><path d="M22 6l14 6v9c0 9-6 15-14 17-8-2-14-8-14-17v-9l14-6z" stroke="#e8232d" stroke-width="1.6"></path></svg>
+<h3>Protect what's private</h3>
+<p>What you type into a public AI tool doesn't just disappear — it can be stored, read by staff, or folded into training future models. Your name, your face, your school, your family's business. Think before you paste, the same way you'd think before you post.</p>
+</div>
+<div class="pillar">
+<svg class="pillar-icon" fill="none" viewBox="0 0 44 44"><path d="M10 34l8-18 8 18M14 26h8M28 12v22" stroke="#e8232d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+<h3>Create without outsourcing your voice</h3>
+<p>Use AI to untangle a stuck idea or check your work — not to hand in something you didn't actually make. Nobody will notice the day you skip the thinking. You'll notice the day you need the skill and it isn't there.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section myth-section">
+<div class="wrap">
+<div class="myth-head-row">
+<div class="section-head" style="margin-bottom:0;">
+<h2>Myth vs. fact</h2>
+<p>Tap a card. These are the beliefs that get teens into the most trouble — because they sound completely reasonable.</p>
+</div>
+</div>
+<div class="myth-head-row">
+<div class="myth-progress">
+<span id="mythProgressLabel">0 of 6 explored</span>
+<div class="myth-progress-track"><div class="myth-progress-fill" id="mythProgressFill"></div></div>
+</div>
+<button class="myth-reset" id="mythReset">Flip all back</button>
+</div>
+<div class="myth-grid" id="mythGrid">
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>If it sounds specific and confident, it's probably true.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>Confidence is a writing style AI is very good at, not a measure of accuracy. Fabricated citations and fake statistics often sound the most precise.</p></div>
+</div>
+</button>
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>Deleting a chat means the conversation is gone.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>Deleting it from your screen isn't the same as deleting it from a company's servers. Retention policies vary — read them before you assume.</p></div>
+</div>
+</button>
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>Only lazy people get "caught" using AI on homework.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>Detection tools are unreliable and both under- and over-flag. The safer bar isn't "will I get caught" — it's "did I actually learn this."</p></div>
+</div>
+</button>
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>AI is neutral because it's just math.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>The math is neutral. The training data is the internet — with all its existing bias baked in. Neutral process, non-neutral output.</p></div>
+</div>
+</button>
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>If a photo looks real, a person definitely took it.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>Image generators can now fake lighting, skin, and texture convincingly. Source and context matter more than how a photo "looks" now.</p></div>
+</div>
+</button>
+<button class="myth-card" data-flipped="false">
+<div class="myth-inner">
+<div class="myth-face myth-front"><span class="myth-tag">Myth</span><p>Using AI a lot makes you better at using AI, full stop.</p></div>
+<div class="myth-face myth-back"><span class="myth-tag fact">Fact</span><p>It makes you faster at prompting. It can make you worse at the underlying skill — research shows people get worse at unaided judgment the more they lean on it.</p></div>
+</div>
+</button>
+</div>
+</div>
+</section>
+
+<section class="section quiz-section" id="quiz">
+<div class="wrap">
+<div class="section-head">
+<h2>Test your AI literacy</h2>
+<p>Ten real-world scenarios, no filler. This is diagnostic, not graded by anyone but you — answer honestly to get feedback that's actually useful.</p>
+</div>
+<div class="quiz-card" id="quizCard">
+<div class="quiz-top">
+<span class="quiz-progress-label" id="quizProgressLabel">Question 1 of 10</span>
+<div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+</div>
+<div id="quizBody"></div>
+</div>
+</div>
+</section>
+
+<section class="bot-section">
+<div class="wrap bot-grid">
+<div class="bot-copy">
+<span class="tag">Meet the bot</span>
+<h2>ALT Bot won't do your homework. It'll make you better than the tool.</h2>
+<p>Ask it the question you'd feel a little embarrassed asking a teacher — about spotting fake content, using AI without getting in trouble, protecting your privacy, or what's actually happening under the hood. It gives you a real answer, then points you at the next thing worth knowing.</p>
+<div class="bot-features">
+<div class="bot-feature"><svg fill="none" height="18" viewBox="0 0 18 18" width="18"><path d="M3 9l4 4 8-8" stroke="#e8232d" stroke-width="2"></path></svg> Real answers on any AI-literacy question, not just canned scripts</div>
+<div class="bot-feature"><svg fill="none" height="18" viewBox="0 0 18 18" width="18"><path d="M3 9l4 4 8-8" stroke="#e8232d" stroke-width="2"></path></svg> Understands nearby phrasing, not just exact keywords</div>
+<div class="bot-feature"><svg fill="none" height="18" viewBox="0 0 18 18" width="18"><path d="M3 9l4 4 8-8" stroke="#e8232d" stroke-width="2"></path></svg> Nothing you type is saved after you close the tab</div>
+</div>
+<div class="hero-actions" style="margin-top:30px;">
+<button class="btn btn-solid" data-open-chat>Start the conversation</button>
+</div>
+</div>
+<div aria-hidden="true" class="bot-preview">
+<div class="bot-preview-head">
+<div class="bot-preview-dot"></div>
+<div class="bot-preview-title">ALT Bot</div>
+<div class="bot-preview-status">online</div>
+</div>
+<div style="flex:1;padding:20px;display:flex;flex-direction:column;gap:14px;overflow:hidden;">
+<div class="msg-row bot"><div class="bubble">Hey — I'm ALT. Ask me how to tell if something online was made by AI, or tap the launcher in the corner to open the full chat.</div></div>
+<div class="msg-row user"><div class="bubble">How do I know if a photo is AI-generated?</div></div>
+<div class="msg-row bot"><div class="bubble">Check hands, ears, and background text first — check the source second. Want the full checklist?</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="page-hero" id="tips">
+<div class="wrap">
+<span class="kicker">Tips &amp; resources</span>
+<h1>Six habits that keep you in control of the tool.</h1>
+<p>Nobody handed you a manual for this. These aren't rules against using AI — they're the difference between using it well and quietly letting it use you back. None of them take more than a few extra seconds once they're automatic, and every one of them is here because someone learned it the hard way first.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">01</span><h2>Verify before you trust it</h2></div>
+<p class="desc">An AI answer feels like it came from somewhere authoritative. It didn't — it's a probability guess, generated fresh each time, with nobody fact-checking it before it reaches you. Treat every claim, quote, or statistic like something a stranger told you confidently at a party: interesting, unverified, worth a second look.</p>
+</div>
+<div class="tip-grid">
+<div class="tip-card">
+<h3>Cross-check the specifics</h3>
+<ul>
+<li>Find a second, independent source for any name, date, or number.</li>
+<li>Search the exact quote — if it doesn't appear anywhere else, assume it's invented.</li>
+<li>Be extra cautious with statistics that sound oddly precise.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Check the visual evidence</h3>
+<ul>
+<li>Zoom in on hands, ears, teeth, and background text in images.</li>
+<li>Look for lighting or shadows that don't match across a scene.</li>
+<li>Reverse-image-search a photo before assuming it's authentic.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Watch for confident wrongness</h3>
+<ul>
+<li>A calm, detailed tone is not evidence of accuracy.</li>
+<li>Ask the AI to explain its reasoning — vague answers are a red flag.</li>
+<li>If a claim would be shocking if true, it needs more than one source.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">02</span><h2>Protect your privacy</h2></div>
+<p class="desc">Free AI tools are still businesses, and you're still the product somewhere in that equation. What you type is often stored, sometimes reviewed by real people, and occasionally folded into training the next version of the tool. It's not paranoid to think about this — it's the same instinct you already use before posting.</p>
+</div>
+<div class="tip-grid">
+<div class="tip-card">
+<h3>Think before you paste</h3>
+<ul>
+<li>Never include your full name with sensitive personal details together.</li>
+<li>Strip identifying information from homework before pasting it in.</li>
+<li>Don't upload photos of yourself, friends, or family unless the tool is school-approved.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Know where your data goes</h3>
+<ul>
+<li>Check whether a tool trains on your conversations by default.</li>
+<li>Look for a setting to opt out of data collection or delete your history.</li>
+<li>Prefer tools your school or a trusted adult has already vetted.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Protect other people too</h3>
+<ul>
+<li>Don't paste a friend's private messages or photos into any AI tool.</li>
+<li>Ask before feeding someone else's schoolwork or personal story into a chatbot.</li>
+<li>Assume anything you type could someday be visible to someone else.</li>
+</ul>
+</div>
+</div>
+<div class="privacy-meter">
+<div class="pm-text">
+<h3>Try it: what's your privacy risk?</h3>
+<p>Check anything you've ever put into a public AI chatbot. The gauge updates live — nothing you tap here is saved or sent anywhere.</p>
+<div class="pm-checks" id="pmChecks">
+<label><input data-risk="2" type="checkbox"/> My full name</label>
+<label><input data-risk="3" type="checkbox"/> My home address or school name</label>
+<label><input data-risk="3" type="checkbox"/> A photo of myself or a friend</label>
+<label><input data-risk="2" type="checkbox"/> Homework with my student ID on it</label>
+<label><input data-risk="3" type="checkbox"/> A private conversation with a friend</label>
+<label><input data-risk="5" type="checkbox"/> A password or account number</label>
+<label><input data-risk="3" type="checkbox"/> My phone number</label>
+<label class="pm-safe"><input id="pmSafeOption" type="checkbox"/> None of this — I keep it out</label>
+</div>
+</div>
+<div class="pm-gauge">
+<svg viewBox="0 0 170 170"><circle cx="85" cy="85" fill="none" r="70" stroke="#1b1b1f" stroke-width="16"></circle><circle cx="85" cy="85" fill="none" id="pmRing" r="70" stroke="#e8232d" stroke-dasharray="440" stroke-dashoffset="440" stroke-linecap="round" stroke-width="16" transform="rotate(-90 85 85)"></circle></svg>
+<div class="pm-score" id="pmScoreLabel">0%</div>
+<div class="pm-verdict-tag" id="pmVerdictTag">check a box</div>
+<div class="pm-verdict-text" id="pmVerdictText">Your risk score updates as you check items on the left.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">03</span><h2>Use it without losing your voice</h2></div>
+<p class="desc">The most common way this backfires isn't getting caught. It's quieter than that — it's two years from now, staring at a blank page during an in-class essay, realizing you never actually practiced doing this without help.</p>
+</div>
+<div class="tip-grid">
+<div class="tip-card">
+<h3>Draft first, ask second</h3>
+<ul>
+<li>Write your own rough version before asking AI for feedback.</li>
+<li>Use it to react to your ideas, not to generate them from scratch.</li>
+<li>Rewrite any AI suggestion in your own words before using it.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Know your school's policy</h3>
+<ul>
+<li>Ask your teacher directly what's allowed for a given assignment.</li>
+<li>Assume submitting AI-written text as your own counts as dishonesty unless told otherwise.</li>
+<li>When unsure, disclose how you used it rather than guessing.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Test yourself after</h3>
+<ul>
+<li>Could you explain the topic out loud with no notes?</li>
+<li>Could you redo the problem without the tool open?</li>
+<li>If not, you outsourced the learning, not just the typing.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">04</span><h2>Recognize bias and limits</h2></div>
+<p class="desc">AI models learn from the internet, which means they inherit the internet's blind spots and biases about people, cultures, and topics.</p>
+</div>
+<div class="tip-grid">
+<div class="tip-card">
+<h3>Ask the same question twice</h3>
+<ul>
+<li>Rephrase a question and compare the two answers you get.</li>
+<li>Notice when tone or assumptions shift with small wording changes.</li>
+<li>Treat inconsistency as a sign the answer isn't a settled fact.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Be careful on sensitive topics</h3>
+<ul>
+<li>Never treat AI as the neutral, final word on people or identity.</li>
+<li>Seek out a human expert or primary source for anything high-stakes.</li>
+<li>Watch for answers that default to Western or majority-culture assumptions.</li>
+</ul>
+</div>
+<div class="tip-card">
+<h3>Understand training gaps</h3>
+<ul>
+<li>AI knowledge has a cutoff date — it can be confidently out of date.</li>
+<li>It performs worse on topics with little written material online.</li>
+<li>Local, niche, or very recent information is the least reliable category.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section game-section" id="game">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">05</span><h2>Practice spotting AI-written text</h2></div>
+<p class="desc">Reading about the tells is one thing. Actually catching them under a little pressure is another. Eight rounds — pick which snippet you think a chatbot wrote.</p>
+</div>
+<div class="game-card" id="gameCard">
+<div class="game-meta">
+<span id="gameRound">Round 1 of 8</span>
+<span>Streak: <strong id="gameStreak">0</strong> · Best: <strong id="gameBest">0</strong></span>
+</div>
+<div id="gameBody"></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="border-bottom:none;">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">06</span><h2>Keep the checklist handy</h2></div>
+<p class="desc">Print this mentally. Tick a box before you rely on an AI answer for something that actually matters.</p>
+</div>
+<div class="check-panel">
+<div>
+<h3>Before you trust an answer</h3>
+<span class="sub">Tap each box as you go</span>
+<div class="check-list" data-group="a">
+<label><input type="checkbox"/><span>I checked this claim against at least one independent source</span></label>
+<label><input type="checkbox"/><span>I looked at the date to make sure this isn't outdated</span></label>
+<label><input type="checkbox"/><span>I didn't paste anyone's private or identifying information</span></label>
+<label><input type="checkbox"/><span>I could explain this answer in my own words without re-reading it</span></label>
+</div>
+<div class="check-panel-progress" data-progress-for="a">0 of 4 checked</div>
+</div>
+<div>
+<h3>Before you submit AI-assisted work</h3>
+<span class="sub">Tap each box as you go</span>
+<div class="check-list" data-group="b">
+<label><input type="checkbox"/><span>I know exactly what my teacher's AI policy allows</span></label>
+<label><input type="checkbox"/><span>I wrote a version of this myself before asking for help</span></label>
+<label><input type="checkbox"/><span>Every sentence I'm submitting is in my own words</span></label>
+<label><input type="checkbox"/><span>I could redo this without the tool open</span></label>
+</div>
+<div class="check-panel-progress" data-progress-for="b">0 of 4 checked</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">↗</span><h2>Go deeper</h2></div>
+<p class="desc">Independent research worth reading directly, from organizations that study how teens actually use these tools.</p>
+</div>
+<div class="resource-list">
+<div class="resource-row">
+<span class="r-name">Common Sense Media</span>
+<span class="r-desc">Annual census on how kids and teens age 9–17 actually use AI, and what parents aren't discussing with them.</span>
+<a class="r-link" href="https://www.commonsensemedia.org/press-releases/common-sense-media-releases-inaugural-annual-study-on-ai-use-by-tweens-and-teens" rel="noopener" target="_blank">Read it</a>
+</div>
+<div class="resource-row">
+<span class="r-name">Pew Research Center</span>
+<span class="r-desc">National survey data on teen chatbot use, what they use it for, and how they feel about it.</span>
+<a class="r-link" href="https://www.pewresearch.org/internet/2025/12/09/teens-social-media-and-ai-chatbots-2025/" rel="noopener" target="_blank">Read it</a>
+</div>
+<div class="resource-row">
+<span class="r-name">MIT Media Lab</span>
+<span class="r-desc">Research on how over-reliance on AI assistance affects a person's own misinformation-detection skill over time.</span>
+<a class="r-link" href="https://www.media.mit.edu/articles/over-reliance-on-chatbots-can-diminish-critical-thinking-skills-study-finds/" rel="noopener" target="_blank">Read it</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" style="border-bottom:none;">
+<div class="wrap">
+<div class="section-label-wrap">
+<div class="section-label"><span class="num">?</span><h2>Questions people actually ask</h2></div>
+<p class="desc">No filler. If it's not a real question, it's not here.</p>
+</div>
+<div class="faq-list">
+<div class="faq-item">
+<button class="faq-q">
+<span>Will my teacher know if I used AI?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>Sometimes, sometimes not — AI-detection tools are unreliable in both directions, flagging honest writing and missing AI-generated text regularly. Don't plan around whether you'll get caught. Plan around whether you actually learned the material, because that's the part that follows you into the test.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>Is it bad that I use AI every day?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>Not automatically. Nearly a quarter of teens use AI daily now — the question isn't frequency, it's what you're using it for and whether you could still do the task without it. Daily use for brainstorming and checking work is different from daily use as a replacement for thinking.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>What if I already pasted something private into a chatbot?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>Check the tool's settings for a way to delete your chat history or opt out of having conversations used for training — most major tools have one, even if it's buried. Going forward, treat it as a lesson learned rather than something to panic about; one mistake doesn't undo the habit you're building now.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>Can AI actually be wrong about something it states as fact?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>Constantly, and confidently. This is called a hallucination — the model produces something that sounds right because it's statistically plausible, not because it checked. The more specific and obscure the claim, the higher the odds it's partly or entirely made up.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>Does using AI a lot make me worse at thinking for myself?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>It can, if you let it do the reasoning instead of just the typing. Research from MIT found people got measurably worse at spotting misinformation on their own after leaning on AI to do it for them. The fix isn't quitting AI — it's making sure you still do the thinking part yourself sometimes, on purpose.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>What's the difference between the quiz and the "spot it" game on this page?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a"><p>The quiz checks what you know — the reasoning and habits. The game checks what you notice — actually catching AI-style writing in the moment. Both matter; knowing the rule and applying it under pressure are different skills.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cta-band">
+<div class="wrap">
+<h2>Curious if this is actually a big deal?</h2>
+<p>It is — and it's not just a vibe. Here's the real data on how teens use AI, what it's doing to critical thinking, and why the gap is growing faster than most adults realize.</p>
+<div class="cta-actions">
+<a class="btn btn-solid" href="#why">View the data</a>
+<a class="btn btn-outline" href="#home">Back to top</a>
+</div>
+</div>
+</section>
+
+<section class="page-hero" id="why">
+<div class="wrap">
+<span class="kicker">Why it matters</span>
+<h1>This isn't a hypothetical. It's already how you live.</h1>
+<p>Every number below comes from a named, published study — not a guess, not a vibe. Read them together and a pattern shows up fast: a whole generation using AI constantly, mostly without anyone explaining the risks, in ways that are quietly reshaping how well they think without it. That's not a reason to panic. It's the reason this page exists.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<h2>How widespread this already is</h2>
+<p>AI adoption among kids and teens moved faster than smartphones or social media did at the same stage.</p>
+</div>
+<div class="bento">
+<div class="bento-cell big">
+<div class="figure">86%</div>
+<div>
+<div class="cap">of kids age 9–17 in the U.S. have used AI in some form — up sharply since generative AI became mainstream.</div>
+<div class="src">Common Sense Media Census, 2026</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">~25%</div>
+<div>
+<div class="cap">use AI every single day.</div>
+<div class="src">Common Sense Media Census, 2026</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">64%</div>
+<div>
+<div class="cap">of U.S. teens use AI chatbots specifically.</div>
+<div class="src">Pew Research Center, Dec. 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">~30%</div>
+<div>
+<div class="cap">of teens who use chatbots do so daily.</div>
+<div class="src">Pew Research Center, Dec. 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">41%</div>
+<div>
+<div class="cap">of kids say a parent or guardian has never talked with them about AI safety.</div>
+<div class="src">Common Sense Media Census, 2026</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<h2>What teens are actually using it for</h2>
+<p>Not novelty — utility. Most usage is practical, which is exactly why judgment matters so much.</p>
+</div>
+<div class="chart-panel">
+<h3>Share of U.S. teens who use AI chatbots for each purpose</h3>
+<span class="sub">Pew Research Center, fall 2025 survey of 1,458 U.S. teens ages 13–17</span>
+<div class="bar-row">
+<span class="bar-label">Finding information</span>
+<div class="bar-track"><div class="bar-fill" data-w="57"></div></div>
+<span class="bar-val">57%</span>
+</div>
+<div class="bar-row">
+<span class="bar-label">Help with schoolwork</span>
+<div class="bar-track"><div class="bar-fill" data-w="54"></div></div>
+<span class="bar-val">54%</span>
+</div>
+<div class="bar-row">
+<span class="bar-label">Entertainment / fun</span>
+<div class="bar-track"><div class="bar-fill" data-w="47"></div></div>
+<span class="bar-val">47%</span>
+</div>
+<div class="bar-row">
+<span class="bar-label">Emotional support or advice</span>
+<div class="bar-track"><div class="bar-fill" data-w="12"></div></div>
+<span class="bar-val">12%</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<h2>The critical-thinking cost</h2>
+<p>This is the part most teens never hear about: leaning on AI to judge what's true can quietly make you worse at judging it yourself.</p>
+</div>
+<div class="compare-grid">
+<div class="compare-cell positive">
+<div class="figure">+21%</div>
+<div class="cap">more accurate at spotting fake news <strong>while actively using</strong> an AI assistant to help judge headlines and images.</div>
+</div>
+<div class="compare-vs">THEN</div>
+<div class="compare-cell negative">
+<div class="figure">−15.3%</div>
+<div class="cap">less accurate at spotting fake news <strong>on their own, afterward</strong> — the skill didn't transfer, it got outsourced.</div>
+</div>
+</div>
+<p style="margin-top:16px;font-size:12.5px;color:var(--ash);">MIT Media Lab, four-week study of 67 participants across 7,203 AI conversations and 4,536 news-authenticity judgments, 2025.</p>
+<div class="so-what">
+<span class="so-what-tag">So what does that mean for you?</span>
+<p>It's fine to ask AI to help you sanity-check a suspicious headline. Just don't stop there — make the final call yourself, out loud, before you trust it. That one habit is the difference between AI sharpening your judgment and quietly replacing it.</p>
+</div>
+</div>
+</section>
+
+<section class="section" style="border-bottom:none;">
+<div class="wrap">
+<div class="section-head">
+<h2>The willingness to say "I don't know"</h2>
+<p>A separate study found something even sharper: simply having AI available changed whether people trusted their own uncertainty.</p>
+</div>
+<div class="ring-panel">
+<svg aria-hidden="true" height="200" viewBox="0 0 200 200" width="200">
+<circle cx="100" cy="100" fill="none" r="80" stroke="#1b1b1f" stroke-width="24"></circle>
+<circle cx="100" cy="100" fill="none" id="ring-a" r="80" stroke="#e8232d" stroke-dasharray="502" stroke-dashoffset="502" stroke-width="24" transform="rotate(-90 100 100)"></circle>
+<circle cx="100" cy="100" fill="none" id="ring-b" r="54" stroke="#8f8983" stroke-dasharray="339" stroke-dashoffset="339" stroke-width="16" transform="rotate(-90 100 100)"></circle>
+</svg>
+<div class="text">
+<h3>Without AI access, 44% of participants were willing to say "I don't know" when they genuinely weren't sure.</h3>
+<p>With AI access to the same question, that number collapsed to just 3% — even when the AI's advice was intentionally wrong. Access to an answer, even an untrustworthy one, made people stop trusting their own doubt.</p>
+<div class="ring-legend">
+<div class="item"><span class="swatch" style="background:#8f8983;"></span> 44% said "I don't know" — no AI access</div>
+<div class="item"><span class="swatch" style="background:#e8232d;"></span> 3% said "I don't know" — with AI access</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="quote-strip">
+<div class="wrap">
+<blockquote>"Mere access to AI advice nearly eliminated participants' willingness to suspend judgment."</blockquote>
+<cite>— Researchers from French and Italian universities, across five experiments on AI and human judgment</cite>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<h2>Why this follows you past graduation</h2>
+<p>The skills gap isn't just academic — it's the skill set employers are already screening for.</p>
+</div>
+<div class="bento">
+<div class="bento-cell big">
+<div class="figure">Top 3</div>
+<div>
+<div class="cap">AI &amp; big data, cybersecurity, and general technological literacy are projected as the three fastest-growing skill categories through 2030.</div>
+<div class="src">World Economic Forum, Future of Jobs Report 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">2/5</div>
+<div>
+<div class="cap">of workers' existing core skills are expected to need transformation by 2030.</div>
+<div class="src">World Economic Forum, 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">+78M</div>
+<div>
+<div class="cap">net new jobs projected globally by 2030, even as 92 million roles are displaced.</div>
+<div class="src">World Economic Forum, 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">48%</div>
+<div>
+<div class="cap">of kids and teens say AI has had a positive impact on their school learning — parents are far more split.</div>
+<div class="src">Common Sense Media / Statista, 2025</div>
+</div>
+</div>
+<div class="bento-cell">
+<div class="figure">43%</div>
+<div>
+<div class="cap">of U.S. parents feel AI has had a negative impact on their child's learning at school.</div>
+<div class="src">Common Sense Media / Statista, 2025</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cta-band">
+<div class="wrap">
+<h2>Now put it into practice.</h2>
+<p>None of these statistics are destiny. They're just what happens on autopilot — here's how not to be on autopilot.</p>
+<div class="cta-actions">
+<a class="btn btn-solid" href="#tips">Read the tips</a>
+<a class="btn btn-outline" href="#home" data-open-chat>Ask ALT Bot</a>
+</div>
+</div>
+</section>
+
+<section class="source-list">
+<div class="wrap">
+<h4>Full sources</h4>
+<ol>
+<li>Common Sense Media, <em>Common Sense Media Census: AI Use by Tweens and Teens</em>, 2026 — <a href="https://www.commonsensemedia.org/press-releases/common-sense-media-releases-inaugural-annual-study-on-ai-use-by-tweens-and-teens" rel="noopener" target="_blank">commonsensemedia.org</a></li>
+<li>Pew Research Center, <em>Teens, Social Media and AI Chatbots 2025</em>, December 2025 — <a href="https://www.pewresearch.org/internet/2025/12/09/teens-social-media-and-ai-chatbots-2025/" rel="noopener" target="_blank">pewresearch.org</a></li>
+<li>Pew Research Center, <em>How Teens Use and View AI</em>, February 2026 — <a href="https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/" rel="noopener" target="_blank">pewresearch.org</a></li>
+<li>MIT Media Lab, study on AI assistance and independent misinformation detection, 2025 — <a href="https://www.media.mit.edu/articles/over-reliance-on-chatbots-can-diminish-critical-thinking-skills-study-finds/" rel="noopener" target="_blank">media.mit.edu</a></li>
+<li>World Economic Forum, <em>Future of Jobs Report 2025</em>, January 2025</li>
+<li>Statista / Common Sense Media, parent and youth perception of AI's impact on school learning, 2025</li>
+</ol>
+</div>
+</section>
+
+<footer>
+<div class="wrap footer-grid">
+<div class="footer-brand">
+<div class="brand" style="pointer-events:none;">
+<span class="brand-mark">A</span>
+<span><span class="brand-name">ALT</span><span class="brand-sub">AI Literacy for Teens</span></span>
+</div>
+<p>Built to be read before your first AI conversation, not after your first bad one. No accounts, no tracking, no sponsor pretending to be neutral.</p>
+</div>
+<div class="footer-col">
+<h4>Learn</h4>
+<a href="#home">Home</a>
+<a href="#quiz">Test your literacy</a>
+<a href="#game">Spot the writing</a>
+<a href="#tips">Habits</a>
+</div>
+<div class="footer-col">
+<h4>Data</h4>
+<a href="#why">Why it matters</a>
+<a href="#why">Full sources</a>
+</div>
+<div class="footer-col">
+<h4>Get help</h4>
+<a href="javascript:void(0)" data-open-chat>Ask ALT Bot</a>
+<a href="https://https://findahelpline.com/countries/in/topics/suicidal-thoughts" rel="noopener" target="_blank">Crisis support (14416)</a>
+</div>
+</div>
+<div class="wrap footer-bottom">
+<span>ALT is an educational resource, not a substitute for advice from a trusted adult.</span>
+<span>Built for the class that grew up with this in their pocket.</span>
+</div>
+</footer>
+
+<footer> <small>&copy; 2026 &copy Vikyath Reddy Lingampally. All rights reserved.</small> </footer>
+
+<script>
+/* ============================================================
+   ALT // SCRIPT (chatbot removed; Noupe widget used instead)
+   ============================================================ */
+
+/* ---------------- Mobile menu ---------------- */
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  if(toggle && menu){
+    toggle.addEventListener('click', ()=>{
+      const open = menu.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    }));
+  }
+})();
+
+/* ---------------- Hero eyebrow rotator ---------------- */
+(function(){
+  const el = document.getElementById('heroRotator');
+  if(!el) return;
+  const phrases = [
+    "Made by people who grew up online too",
+    "No filler. No sponsor pretending to be neutral.",
+    "The manual nobody handed you",
+    "86% of teens already use this — this is the part they skipped"
+  ];
+  let i = 0;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(()=>{
+    i = (i+1) % phrases.length;
+    el.style.opacity = '0';
+    setTimeout(()=>{ el.textContent = phrases[i]; el.style.opacity = '1'; }, 260);
+  }, 4200);
+  el.style.transition = 'opacity .26s ease';
+})();
+
+/* ---------------- Stat counters ---------------- */
+(function(){
+  const counters = document.querySelectorAll('.stat-num');
+  if(!counters.length) return;
+  const statCounterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseFloat(el.dataset.count);
+        const decimals = el.dataset.decimal ? 1 : 0;
+        let cur = 0;
+        const step = target/40;
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = target.toFixed(decimals)+'%'; return; }
+          el.textContent = cur.toFixed(decimals)+'%';
+          requestAnimationFrame(tick);
+        };
+        tick();
+        statCounterIO.unobserve(el);
+      }
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>statCounterIO.observe(c));
+})();
+
+/* ---------------- Myth vs fact flip cards ---------------- */
+(function(){
+  const cards = document.querySelectorAll('.myth-card');
+  const label = document.getElementById('mythProgressLabel');
+  const fill = document.getElementById('mythProgressFill');
+  const resetBtn = document.getElementById('mythReset');
+  if(!cards.length) return;
+  function updateProgress(){
+    const seen = document.querySelectorAll('.myth-card.seen').length;
+    if(label) label.textContent = seen + ' of ' + cards.length + ' explored';
+    if(fill) fill.style.width = (seen / cards.length * 100) + '%';
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      card.classList.toggle('is-flipped');
+      card.classList.add('seen');
+      updateProgress();
+    });
+  });
+  if(resetBtn){
+    resetBtn.addEventListener('click', ()=>{
+      cards.forEach(c=>c.classList.remove('is-flipped'));
+    });
+  }
+})();
+
+/* ---------------- FAQ accordion ---------------- */
+(function(){
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+})();
+
+/* ---------------- Read progress + back to top ---------------- */
+(function(){
+  const bar = document.getElementById('read-progress');
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    if(bar) bar.style.width = scrolled + '%';
+    if(backBtn) backBtn.classList.toggle('show', h.scrollTop > 700);
+  });
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  }
+})();
+
+/* ---------------- Bar chart + ring reveal ---------------- */
+(function(){
+  const barFillIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.bar-fill').forEach(el=>{ el.style.width = el.dataset.w + '%'; });
+        barFillIO.unobserve(e.target);
+      }
+    });
+  },{threshold:0.3});
+  document.querySelectorAll('.chart-panel').forEach(p=>barFillIO.observe(p));
+
+  const ringIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const a = document.getElementById('ring-a');
+        const b = document.getElementById('ring-b');
+        if(a){ a.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)'; a.style.strokeDashoffset = 502 - (502*0.03); }
+        if(b){ b.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)'; b.style.strokeDashoffset = 339 - (339*0.44); }
+        ringIO.unobserve(e.target);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('.ring-panel').forEach(p=>ringIO.observe(p));
+})();
+
+/* ---------------- Checklist progress (habit 06) ---------------- */
+(function(){
+  document.querySelectorAll('.check-list').forEach(list=>{
+    const group = list.dataset.group;
+    const progressEl = document.querySelector('[data-progress-for="'+group+'"]');
+    const inputs = list.querySelectorAll('input[type="checkbox"]');
+    function update(){
+      let checked = 0;
+      inputs.forEach(inp=>{
+        const lbl = inp.closest('label');
+        if(inp.checked){ checked++; lbl.classList.add('checked-text'); }
+        else { lbl.classList.remove('checked-text'); }
+      });
+      if(progressEl) progressEl.textContent = checked + ' of ' + inputs.length + ' checked';
+    }
+    inputs.forEach(inp=>inp.addEventListener('change', update));
+    update();
+  });
+})();
+
+/* ---------------- Privacy risk meter ---------------- */
+(function(){
+  const checks = document.getElementById('pmChecks');
+  if(!checks) return;
+  const safeBox = document.getElementById('pmSafeOption');
+  const riskBoxes = Array.from(checks.querySelectorAll('input[data-risk]'));
+  const maxRisk = riskBoxes.reduce((sum, b)=> sum + parseInt(b.dataset.risk,10), 0);
+  const ring = document.getElementById('pmRing');
+  const scoreLabel = document.getElementById('pmScoreLabel');
+  const tagEl = document.getElementById('pmVerdictTag');
+  const textEl = document.getElementById('pmVerdictText');
+  const CIRC = 440;
+
+  function render(pct){
+    const offset = CIRC - (CIRC * pct/100);
+    if(ring){
+      ring.style.transition = 'stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1), stroke .3s ease';
+      ring.style.strokeDashoffset = offset;
+      ring.style.stroke = pct < 33 ? '#4caf6a' : (pct < 66 ? '#e0a72e' : '#e8232d');
+    }
+    if(scoreLabel) scoreLabel.textContent = Math.round(pct) + '%';
+    let tag = 'low risk', text = "You're keeping sensitive stuff out of chatbots — that's exactly the habit worth keeping.";
+    if(pct === 0 && !safeBox.checked){ tag = 'check a box'; text = 'Your risk score updates as you check items on the left.'; }
+    else if(pct >= 66){ tag = 'high risk'; text = "That's a lot of sensitive info in one place. Go back and think about which of those actually needed to be typed in at all."; }
+    else if(pct >= 33){ tag = 'moderate risk'; text = "Not terrible, but worth a second look — especially anything tied to your identity or someone else's privacy."; }
+    else if(pct > 0){ tag = 'low risk'; text = "Pretty low exposure. Keep an eye on the items you did check next time."; }
+    if(tagEl) tagEl.textContent = tag;
+    if(textEl) textEl.textContent = text;
+  }
+
+  function update(){
+    if(safeBox.checked){
+      riskBoxes.forEach(b=>{ b.checked = false; b.disabled = true; });
+      render(0);
+      return;
+    }
+    riskBoxes.forEach(b=> b.disabled = false);
+    const sum = riskBoxes.reduce((s,b)=> s + (b.checked ? parseInt(b.dataset.risk,10) : 0), 0);
+    render(maxRisk ? (sum / maxRisk * 100) : 0);
+  }
+  checks.addEventListener('change', update);
+  update();
+})();
+
+/* ---------------- Dot nav + active section tracking ---------------- */
+(function(){
+  const sectionIds = ['home','quiz','game','tips','why'];
+  const sections = sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
+  const dots = document.querySelectorAll('.dot-nav .dot');
+  const navLinks = document.querySelectorAll('.main-links a');
+
+  dots.forEach(dot=>{
+    dot.addEventListener('click', ()=>{
+      const target = document.querySelector(dot.dataset.target);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  const activeIO = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const id = en.target.id;
+        dots.forEach(d=> d.classList.toggle('active', d.dataset.target === '#'+id));
+        navLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('href') === '#'+id));
+      }
+    });
+  },{rootMargin:'-35% 0px -55% 0px', threshold:0});
+  sections.forEach(el=>activeIO.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id && id !== '#'){
+        const target = document.querySelector(id);
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  });
+})();
+
+/* ---------------- Cursor glow + ambient particles ---------------- */
+(function(){
+  if(window.matchMedia('(pointer: fine)').matches){
+    window.addEventListener('pointermove', e=>{
+      document.documentElement.style.setProperty('--mx', e.clientX+'px');
+      document.documentElement.style.setProperty('--my', e.clientY+'px');
+    }, {passive:true});
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    for(let i=0;i<16;i++){
+      const p = document.createElement('i');
+      p.className = 'alt-particle';
+      p.style.left = Math.random()*100+'vw';
+      p.style.bottom = (-10-Math.random()*30)+'px';
+      p.style.animationDuration = (9+Math.random()*15)+'s';
+      p.style.animationDelay = (-Math.random()*15)+'s';
+      document.body.appendChild(p);
+    }
+  }
+})();
+
+/* ============================================================
+   QUIZ: Test your AI literacy
+   ============================================================ */
+(function(){
+  const body = document.getElementById('quizBody');
+  const progressLabel = document.getElementById('quizProgressLabel');
+  const progressFill = document.getElementById('quizProgressFill');
+  const card = document.getElementById('quizCard');
+  if(!body) return;
+
+  const QUESTIONS = [
+    { q:"An AI chatbot gives you a very specific statistic with a source that sounds official. What's the smartest move?",
+      opts:["Trust it — it sounds precise","Search for that exact stat somewhere else before repeating it","Ignore it completely","Ask the AI if it's sure, and trust whatever it says next"],
+      correct:1, cat:"trust",
+      explain:"Confident, specific-sounding detail is not the same as verified detail. A second independent source is the only real check." },
+    { q:"You want help studying for a history test. What's the AI-literate way to use a chatbot?",
+      opts:["Have it write your essay for you","Ask it to quiz you on the material","Copy its summary straight into your notes","Skip studying and ask it during the test"],
+      correct:1, cat:"school",
+      explain:"Using AI to test yourself builds the skill. Using it to generate the final product skips the part that actually helps you learn." },
+    { q:"Which kind of detail is a chatbot most likely to get wrong?",
+      opts:["Well-known historical dates","Basic arithmetic","A very recent, niche, or local event","The definition of a common word"],
+      correct:2, cat:"basics",
+      explain:"Models are weakest on anything recent, obscure, or thinly covered online — exactly where there's less training data to draw from." },
+    { q:"You're about to paste your full name and home address into a chatbot to help write a complaint letter. What first?",
+      opts:["Just paste it, it's fine","Swap in a placeholder and remove the identifying details","Add more personal detail for accuracy","Nothing — AI companies never store chats"],
+      correct:1, cat:"privacy",
+      explain:"You can get the same help without handing over identifying information the tool doesn't actually need." },
+    { q:"A photo looks totally real — sharp lighting, natural skin, normal shadows. Does that mean a camera took it?",
+      opts:["Yes, AI can't fake lighting that well","No — modern generators can fake all of that convincingly","Only fake if it's black and white","Only fake if there are extra fingers visible"],
+      correct:1, cat:"trust",
+      explain:"Visual polish stopped being a reliable signal a while ago. Source and context now matter more than how convincing an image looks." },
+    { q:"Why can two people get noticeably different answers from the same AI model on the same topic?",
+      opts:["The model flips a coin","Small wording differences and training-data bias can both shape the output","It's actually always identical","Only paid versions are accurate"],
+      correct:1, cat:"bias",
+      explain:"Phrasing changes outputs, and the internet's existing biases are baked into training data — so answers aren't as neutral as they sound." },
+    { q:"Research on AI and critical thinking found that people who leaned on AI to judge fake news got ___ at spotting it on their own afterward.",
+      opts:["Better","No different","Worse","The study found no measurable effect"],
+      correct:2, cat:"wellbeing",
+      explain:"MIT Media Lab found real people measurably worse at unaided judgment after relying on AI assistance — the skill didn't transfer, it got outsourced." },
+    { q:"A friend asks you to paste their private messages into a chatbot to help draft a reply. What's the AI-literate move?",
+      opts:["Do it — it's just advice","Ask your friend first, since it's their private data too","Never mention it happened","Paste it but change their name"],
+      correct:1, cat:"privacy",
+      explain:"Privacy isn't only about your own data. Other people's messages and photos deserve the same pause before you share them anywhere." },
+    { q:"You submit an assignment that's mostly AI-written without telling your teacher. What's the real risk, beyond getting caught?",
+      opts:["None, if the grade is good","You skip the actual learning the assignment was meant to build","AI-written work is always worse quality","There's no risk either way"],
+      correct:1, cat:"school",
+      explain:"Grades are a proxy. The actual risk is showing up later — a test, a job, a skill — without the understanding the assignment was supposed to build." },
+    { q:"What's the single best habit for using AI well?",
+      opts:["Trust the first answer completely","Never use it for anything school-related","Verify before you trust it, and think before you paste","Only use it late at night"],
+      correct:2, cat:"basics",
+      explain:"Those two habits — verify, then think before you paste — cover almost every mistake teens make with these tools." }
+  ];
+
+  const CATS = { trust:"Judging AI output", school:"Using AI for school", basics:"How AI actually works", privacy:"Protecting your data", bias:"Spotting bias & limits", wellbeing:"Keeping your own judgment sharp" };
+
+  let qi = 0, score = 0;
+  let catStats = {};
+  Object.keys(CATS).forEach(k=> catStats[k] = {correct:0,total:0});
+
+  function renderQuestion(){
+    const item = QUESTIONS[qi];
+    progressLabel.textContent = 'Question ' + (qi+1) + ' of ' + QUESTIONS.length;
+    progressFill.style.width = (qi / QUESTIONS.length * 100) + '%';
+    const letters = ['A','B','C','D'];
+    body.innerHTML =
+      '<div class="quiz-question">' + item.q + '</div>' +
+      '<div class="quiz-options" id="quizOptions">' +
+        item.opts.map((o,idx)=>
+          '<button class="quiz-option" data-idx="'+idx+'"><span class="opt-letter">'+letters[idx]+'</span><span>'+o+'</span></button>'
+        ).join('') +
+      '</div>' +
+      '<div class="quiz-explain" id="quizExplain">' + item.explain + '</div>' +
+      '<div class="quiz-next" id="quizNextWrap"></div>';
+
+    const optionButtons = body.querySelectorAll('.quiz-option');
+    optionButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const idx = parseInt(btn.dataset.idx,10);
+        optionButtons.forEach(b=> b.disabled = true);
+        catStats[item.cat].total++;
+        if(idx === item.correct){
+          btn.classList.add('correct');
+          score++;
+          catStats[item.cat].correct++;
+        } else {
+          btn.classList.add('wrong');
+          optionButtons[item.correct].classList.add('correct');
+        }
+        document.getElementById('quizExplain').classList.add('show');
+        const nextWrap = document.getElementById('quizNextWrap');
+        const isLast = qi === QUESTIONS.length - 1;
+        nextWrap.innerHTML = '<button class="btn btn-solid" id="quizNextBtn">'+(isLast ? 'See my results' : 'Next question')+'</button>';
+        document.getElementById('quizNextBtn').addEventListener('click', ()=>{
+          if(isLast){ renderResults(); } else { qi++; renderQuestion(); }
+        });
+      });
+    });
+  }
+
+  function tierFor(s){
+    if(s >= 9) return {name:'AI-Literacy Expert', blurb:"You're already doing what this whole site is trying to teach. Keep it up, and maybe show a friend."};
+    if(s >= 7) return {name:'Sharp Eye', blurb:"Solid instincts — you catch most of the traps. A couple of habits below could close the gap."};
+    if(s >= 4) return {name:'AI-Aware', blurb:"You know the basics but a few of the sneakier traps still got you. That's exactly what this page is for."};
+    return {name:'Just Getting Started', blurb:"No judgment — most teens haven't been taught any of this directly. Start with the habits section below."};
+  }
+
+  function renderResults(){
+    progressFill.style.width = '100%';
+    progressLabel.textContent = 'Complete';
+    const tier = tierFor(score);
+    let weakestCat = null, weakestRatio = 2;
+    Object.keys(catStats).forEach(k=>{
+      const s = catStats[k];
+      if(s.total > 0){
+        const ratio = s.correct / s.total;
+        if(ratio < weakestRatio){ weakestRatio = ratio; weakestCat = k; }
+      }
+    });
+    body.innerHTML =
+      '<div class="quiz-results">' +
+        '<span class="quiz-tier">' + tier.name + '</span>' +
+        '<div class="quiz-score-big">' + score + ' / ' + QUESTIONS.length + '</div>' +
+        '<p class="quiz-score-sub">' + tier.blurb + '</p>' +
+        (weakestCat ? '<p class="quiz-score-sub">Your weakest area right now: <strong style="color:var(--paper)">' + CATS[weakestCat] + '</strong>. Worth an extra look.</p>' : '') +
+        '<div class="quiz-cats" id="quizCats"></div>' +
+        '<div class="quiz-actions">' +
+          '<button class="btn btn-solid" id="quizRetake">Retake the quiz</button>' +
+          '<button class="btn btn-outline" id="quizCopy">Copy my results</button>' +
+          '<a class="btn btn-outline" href="#tips">Go to the habits</a>' +
+        '</div>' +
+        '<div class="quiz-copy-note" id="quizCopyNote">Copied to your clipboard.</div>' +
+      '</div>' +
+      '<div class="quiz-confetti" id="quizConfetti"></div>';
+
+    const catsEl = document.getElementById('quizCats');
+    Object.keys(CATS).forEach(k=>{
+      const s = catStats[k];
+      const pct = s.total ? Math.round(s.correct / s.total * 100) : 0;
+      const row = document.createElement('div');
+      row.className = 'quiz-cat-row';
+      row.innerHTML = '<span class="quiz-cat-label">'+CATS[k]+'</span><div class="quiz-cat-track"><div class="quiz-cat-fill" data-w="'+pct+'"></div></div><span class="quiz-cat-val">'+s.correct+'/'+s.total+'</span>';
+      catsEl.appendChild(row);
+    });
+    requestAnimationFrame(()=>{
+      document.querySelectorAll('.quiz-cat-fill').forEach(el=>{ el.style.width = el.dataset.w + '%'; });
+    });
+
+    document.getElementById('quizRetake').addEventListener('click', ()=>{
+      qi = 0; score = 0;
+      Object.keys(CATS).forEach(k=> catStats[k] = {correct:0,total:0});
+      renderQuestion();
+    });
+    document.getElementById('quizCopy').addEventListener('click', ()=>{
+      const summary = 'I scored ' + score + '/' + QUESTIONS.length + ' on the ALT AI Literacy quiz (' + tier.name + '). Test yourself too.';
+      const note = document.getElementById('quizCopyNote');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(summary).then(()=>{
+          note.textContent = 'Copied to your clipboard.';
+          note.classList.add('show');
+          setTimeout(()=> note.classList.remove('show'), 2200);
+        }).catch(()=>{
+          note.textContent = summary;
+          note.classList.add('show');
+        });
+      } else {
+        note.textContent = summary;
+        note.classList.add('show');
+      }
+    });
+
+    if(score >= 9 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const confettiWrap = document.getElementById('quizConfetti');
+      const colors = ['#e8232d','#ff7b83','#f4efe8'];
+      for(let i=0;i<26;i++){
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random()*100+'%';
+        piece.style.background = colors[i % colors.length];
+        piece.style.animationDuration = (1.4 + Math.random()*1.2)+'s';
+        piece.style.animationDelay = (Math.random()*0.4)+'s';
+        confettiWrap.appendChild(piece);
+      }
+      setTimeout(()=>{ confettiWrap.innerHTML=''; }, 3200);
+    }
+  }
+
+  renderQuestion();
+})();
+
+/* ============================================================
+   GAME: Real or AI? Spot the writing
+   ============================================================ */
+(function(){
+  const body = document.getElementById('gameBody');
+  const roundLabel = document.getElementById('gameRound');
+  const streakLabel = document.getElementById('gameStreak');
+  const bestLabel = document.getElementById('gameBest');
+  if(!body) return;
+
+  const ROUNDS = [
+    { a:"ok so I tried the new taco place near school today and it was actually SO good, get the al pastor fr",
+      b:"The new taco restaurant near the school offers a satisfying dining experience, with the al pastor option being particularly noteworthy.",
+      aiSide:'b',
+      why:"B leans on formal transitions and even, balanced phrasing — real texting is messier, with slang and specific personal detail like \"fr\"." },
+    { a:"Photosynthesis is the process by which plants convert light energy into chemical energy, primarily within the chloroplasts of plant cells, enabling growth and the release of oxygen as a byproduct.",
+      b:"so plants basically eat sunlight?? thats wild ngl, they use it to make their own food in those green cell things",
+      aiSide:'a',
+      why:"A is textbook-precise with full technical vocabulary in one breath — a real person explaining something offhand usually simplifies and hedges more." },
+    { a:"Honestly I don't even know what to say about the game last night, we blew a 20 point lead and I'm still mad about it lol",
+      b:"Last night's basketball game was a disappointing outcome, as the team squandered a significant lead in the fourth quarter, resulting in a loss.",
+      aiSide:'b',
+      why:"B reports the event neutrally like a recap. A has the messiness of an actual reaction — trailing off, \"lol\" undercutting the frustration." },
+    { a:"In summary, effective time management involves prioritizing tasks, setting achievable goals, and minimizing distractions to maximize productivity.",
+      b:"bro i just need to stop opening tiktok every 5 minutes when im supposed to be doing hw, thats literally the whole problem",
+      aiSide:'a',
+      why:"A summarizes in generic, well-organized advice-column language. B names one specific, personal, slightly embarrassing habit." },
+    { a:"idk why but my dog keeps barking at literally nothing today, like staring at the wall barking, kinda freaking me out ngl",
+      b:"My dog has been exhibiting unusual behavior today, repeatedly barking at seemingly nothing, which I find somewhat concerning.",
+      aiSide:'b',
+      why:"B uses careful, clinical phrasing (\"exhibiting unusual behavior\") for something a real owner would describe much more bluntly." },
+    { a:"The mitochondria is often referred to as the powerhouse of the cell due to its essential role in producing ATP through cellular respiration.",
+      b:"ok but why do we still have to memorize this mitochondria thing every single year since like 6th grade",
+      aiSide:'a',
+      why:"A restates a textbook fact almost verbatim. B has an actual opinion and personal history attached to the topic." },
+    { a:"can someone explain why my wifi decides to die every single time i join a call, like clockwork, so annoying",
+      b:"Intermittent Wi-Fi disconnections during video calls are commonly caused by network congestion, router placement, or bandwidth limitations.",
+      aiSide:'b',
+      why:"B jumps straight to a tidy, listy explanation. A is a frustrated question with personal detail (\"like clockwork\") and no answer yet." },
+    { a:"Overall, maintaining a balanced diet and regular exercise routine contributes significantly to long-term physical and mental well-being.",
+      b:"started going on walks after dinner instead of just laying in bed and ngl it's actually helping my mood a lot",
+      aiSide:'a',
+      why:"A is a generic wellness-brochure statement. B is a specific, lived change with an honest, hedged conclusion (\"ngl\", \"a lot\")." }
+  ];
+
+  let order = [];
+  let ri = 0, streak = 0, best = 0, correctCount = 0;
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  function renderRound(){
+    if(ri >= order.length){ renderFinal(); return; }
+    roundLabel.textContent = 'Round ' + (ri+1) + ' of ' + order.length;
+    streakLabel.textContent = streak;
+    bestLabel.textContent = best;
+    const r = order[ri];
+    const flip = Math.random() < 0.5;
+    const leftSide = flip ? 'b' : 'a';
+    const rightSide = flip ? 'a' : 'b';
+    body.innerHTML =
+      '<p class="game-instructions">Which one do you think a chatbot wrote?</p>' +
+      '<div class="game-pair" id="gamePair">' +
+        '<button class="game-choice" data-side="'+leftSide+'"><span class="gc-label">Snippet 1</span>'+r[leftSide]+'</button>' +
+        '<button class="game-choice" data-side="'+rightSide+'"><span class="gc-label">Snippet 2</span>'+r[rightSide]+'</button>' +
+      '</div>' +
+      '<div id="gameFeedbackWrap"></div>';
+
+    const choices = body.querySelectorAll('.game-choice');
+    choices.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        choices.forEach(b=> b.disabled = true);
+        const picked = btn.dataset.side;
+        const isRight = picked === r.aiSide;
+        choices.forEach(b=>{
+          if(b.dataset.side === r.aiSide) b.classList.add('gc-correct');
+          else if(b === btn) b.classList.add('gc-wrong');
+        });
+        if(isRight){ streak++; correctCount++; if(streak > best) best = streak; }
+        else { streak = 0; }
+        streakLabel.textContent = streak;
+        bestLabel.textContent = best;
+        const wrap = document.getElementById('gameFeedbackWrap');
+        const isLast = ri === order.length - 1;
+        wrap.innerHTML =
+          '<div class="game-feedback"><strong>' + (isRight ? "Got it. " : "Not this time. ") + '</strong>' + r.why + '</div>' +
+          '<div class="game-next"><button class="btn btn-solid" id="gameNextBtn">' + (isLast ? 'See final score' : 'Next round') + '</button></div>';
+        document.getElementById('gameNextBtn').addEventListener('click', ()=>{ ri++; renderRound(); });
+      });
+    });
+  }
+
+  function renderFinal(){
+    roundLabel.textContent = 'Complete';
+    body.innerHTML =
+      '<div class="game-final">' +
+        '<div class="quiz-score-big">' + correctCount + ' / ' + order.length + '</div>' +
+        '<p class="quiz-score-sub">correctly spotted as AI-written. Best streak: ' + best + '.</p>' +
+        '<p class="quiz-score-sub">Notice a pattern? Even transitions, balanced hedging, and textbook vocabulary are common AI tells — but none of them are proof by themselves. Context and source still matter more than tone.</p>' +
+        '<div class="quiz-actions"><button class="btn btn-solid" id="gameReplay">Play again</button><a class="btn btn-outline" href="#quiz">Take the literacy quiz</a></div>' +
+      '</div>';
+    document.getElementById('gameReplay').addEventListener('click', ()=>{
+      order = shuffle(ROUNDS); ri = 0; streak = 0; correctCount = 0;
+      renderRound();
+    });
+  }
+
+  order = shuffle(ROUNDS);
+  renderRound();
+})();
+
+/* ============================================================
+   NOUPE CHATBOT: open the widget from any "Ask / Chat with Bot" button
+   ============================================================ */
+(function(){
+  function openNoupe(){
+    // Try to open Noupe's own launcher if it has rendered yet
+    const selectors = [
+      '[class*="noupe"][class*="launcher"]',
+      '[id*="noupe"][id*="launcher"]',
+      '[class*="noupe"][class*="button"]',
+      '[id*="noupe"]'
+    ];
+    for(const sel of selectors){
+      const el = document.querySelector(sel);
+      if(el){ el.click(); return true; }
+    }
+    return false;
+  }
+
+  document.addEventListener('click', function(e){
+    const trigger = e.target.closest('[data-open-chat]');
+    if(!trigger) return;
+    e.preventDefault();
+    let tries = 0;
+    (function attempt(){
+      if(openNoupe() || tries++ > 20) return;
+      setTimeout(attempt, 250);
+    })();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault();
+      document.querySelector('[data-open-chat]').click();
+    }
+  });
+})();
+</script>
+
+<script src='https://www.noupe.com/embed/01a1882572b0700087937281aef3b3b3f8e8.js'></script>
+</body>
+</html>
